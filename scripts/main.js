@@ -54,3 +54,21 @@ function Render() {
     }
 
 }
+
+function Solve() {
+    var center = GetCenterOfMass();
+}
+
+function GetCenterOfMass() {
+    var n = points.length;
+    var c = {};
+    var sumx = 0;
+    var sumy = 0;
+    for (var i = 0; i < n; i++) {
+        sumx += points[i].x;
+        sumy += points[i].y;
+    }
+    c.x = sumx/n;
+    c.y = sumy/n;
+    return c;
+}
