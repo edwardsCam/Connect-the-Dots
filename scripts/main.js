@@ -1,9 +1,9 @@
 var points = [];
 var ctx;
-var can_draw_lines = false;
+var solve_toggle = false;
 
 $(document).ready(function() {
-    $('.button').hover(function() {
+    $("#button").hover(function() {
         $(this).stop().animate({
             width: '140px'
         }, 500);
@@ -13,18 +13,24 @@ $(document).ready(function() {
         }, 500);
     });
 
-    $('.button').click(function() {
-        Solve();
+    $("#button").click(function() {
+        if (!solve_toggle) {
+            Solve();
+        } else {
+            ResetAll();
+        }
     });
 
     $("#canvas").click(function(e) {
-        canoffset = $(canvas).offset();
-        var mouse_x = event.clientX + document.body.scrollLeft + document.documentElement.scrollLeft - Math.floor(canoffset.left);
-        var mouse_y = event.clientY + document.body.scrollTop + document.documentElement.scrollTop - Math.floor(canoffset.top) + 1;
-        points.push({
-            x: mouse_x,
-            y: mouse_y
-        });
+        if (!solve_toggle) {
+            canoffset = $(canvas).offset();
+            var mouse_x = event.clientX + document.body.scrollLeft + document.documentElement.scrollLeft - Math.floor(canoffset.left);
+            var mouse_y = event.clientY + document.body.scrollTop + document.documentElement.scrollTop - Math.floor(canoffset.top) + 1;
+            points.push({
+                x: mouse_x,
+                y: mouse_y
+            });
+        }
     });
 
     var canvas = document.getElementById('canvas');
@@ -50,7 +56,7 @@ function Render() {
         var p = points[i];
         ctx.fillRect(p.x - 2, p.y - 2, 4, 4);
     }
-    if (can_draw_lines) {
+    if (solve_toggle) {
         DrawLines();
     }
 }
@@ -59,7 +65,7 @@ function Solve() {
     var center = GetCenterOfMass();
     GetAngles(center);
     SortByAngle();
-    ToggleLineDraw();
+    ToggleSolve();
 }
 
 function GetCenterOfMass() {
@@ -98,17 +104,30 @@ function CompareByAngle(p1, p2) {
 }
 
 function DrawLines() {
-    var p0 = points[0];
-    ctx.beginPath();
-    ctx.moveTo(p0.x, p0.y);
-    for (var i = 1; i < points.length; i++) {
-        var p = points[i];
-        ctx.lineTo(p.x, p.y);
+    if (points.length > 0) {
+        var p0 = points[0];
+        ctx.beginPath();
+        ctx.moveTo(p0.x, p0.y);
+        for (var i = 1; i < points.length; i++) {
+            var p = points[i];
+            ctx.lineTo(p.x, p.y);
+        }
+        ctx.lineTo(p0.x, p0.y);
+        ctx.stroke();
     }
-    ctx.lineTo(p0.x, p0.y);
-    ctx.stroke();
 }
 
-function ToggleLineDraw() {
-    can_draw_lines = !can_draw_lines;
+function ToggleSolve() {
+    if (solve_toggle) {
+        solve_toggle = false;
+        document.getElementById('button').innerHTML = '<h2>Solve</h2>';
+    } else {
+        solve_toggle = true;
+        document.getElementById('button').innerHTML = '<h2>Reset</h2>';
+    }
+}
+
+function ResetAll() {
+    points = [];
+    ToggleSolve();
 }
