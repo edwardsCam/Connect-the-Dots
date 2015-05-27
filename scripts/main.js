@@ -1,16 +1,22 @@
 var points = [];
 var ctx;
 var solve_toggle = false;
+var solve_enabled = false;
 
 $(document).ready(function() {
+
     $("#button").hover(function() {
-        $(this).stop().animate({
-            width: '140px'
-        }, 500);
+        if (solve_enabled) {
+            $(this).stop().animate({
+                width: '700px'
+            }, 500);
+        }
     }, function() {
-        $(this).stop().animate({
-            width: '100px'
-        }, 500);
+        if (solve_enabled) {
+            $(this).stop().animate({
+                width: '600px'
+            }, 500);
+        }
     });
 
     $("#button").click(function() {
@@ -46,8 +52,28 @@ function wipeCanvas() {
 }
 
 function MainLoop() {
+    IsButtonEnabled();
     Render();
     requestAnimationFrame(MainLoop);
+}
+
+function IsButtonEnabled() {
+    if (points.length > 1) {
+        if (!solve_enabled) {
+            solve_enabled = true;
+            document.getElementById('button').innerHTML = '<h2>Solve</h2>';
+            $("#button").stop().animate({
+                height: '50px'
+            }, 500);
+        }
+    } else if (solve_enabled) {
+        solve_enabled = false;
+        document.getElementById('button').innerHTML = '<h2>Make some points!</h2>';
+        $("#button").stop().animate({
+            height: '25px',
+            width: '600px'
+        }, 500);
+    }
 }
 
 function Render() {
@@ -62,8 +88,7 @@ function Render() {
 }
 
 function Solve() {
-    if (points.length > 1)
-    {
+    if (points.length > 1) {
         var center = GetCenterOfMass();
         GetAngles(center);
         SortByAngle();
