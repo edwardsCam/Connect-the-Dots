@@ -20,8 +20,6 @@ $(document).ready(function() {
         canoffset = $(canvas).offset();
         var mouse_x = event.clientX + document.body.scrollLeft + document.documentElement.scrollLeft - Math.floor(canoffset.left);
         var mouse_y = event.clientY + document.body.scrollTop + document.documentElement.scrollTop - Math.floor(canoffset.top) + 1;
-       // var mouse_x = Math.floor((e.pageX-$("#canvas").offset().left));
-        //var mouse_y = Math.floor((e.pageY-$("#canvas").offset().top));
         points.push({x:mouse_x, y:mouse_y});
      });
 
