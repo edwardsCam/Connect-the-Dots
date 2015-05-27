@@ -62,10 +62,15 @@ function Render() {
 }
 
 function Solve() {
-    var center = GetCenterOfMass();
-    GetAngles(center);
-    SortByAngle();
-    ToggleSolve();
+    if (points.length > 1)
+    {
+        var center = GetCenterOfMass();
+        GetAngles(center);
+        SortByAngle();
+        ToggleSolve();
+    } else {
+        Wiggle();
+    }
 }
 
 function GetCenterOfMass() {
@@ -130,4 +135,8 @@ function ToggleSolve() {
 function ResetAll() {
     points = [];
     ToggleSolve();
+}
+
+function Wiggle() {
+    //wiggle?
 }
