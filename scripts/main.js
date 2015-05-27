@@ -55,6 +55,7 @@ function Render() {
 
 function Solve() {
     var center = GetCenterOfMass();
+    GetAngles(center);
 }
 
 function GetCenterOfMass() {
@@ -69,4 +70,13 @@ function GetCenterOfMass() {
     c.x = sumx/n;
     c.y = sumy/n;
     return c;
+}
+
+function GetAngles(center) {
+    for (var i = 0; i < points.length; i++) {
+        var p = points[i];
+        var dx = p.x - center.x;
+        var dy = p.y - center.y;
+        p.a = Math.atan2(dy,dx);
+    }
 }
