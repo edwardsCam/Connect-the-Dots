@@ -1,5 +1,6 @@
 var points = [];
 var ctx;
+var can_draw_lines = false;
 
 $(document).ready(function() {
     $('.button').hover(function() {
@@ -49,12 +50,16 @@ function Render() {
         var p = points[i];
         ctx.fillRect(p.x - 2, p.y - 2, 4, 4);
     }
+    if (can_draw_lines) {
+        DrawLines();
+    }
 }
 
 function Solve() {
     var center = GetCenterOfMass();
     GetAngles(center);
     SortByAngle();
+    ToggleLineDraw();
 }
 
 function GetCenterOfMass() {
@@ -90,4 +95,20 @@ function CompareByAngle(p1, p2) {
     if (p1.a > p2.a)
         return 1;
     return 0;
+}
+
+function DrawLines() {
+    var p0 = points[0];
+    ctx.beginPath();
+    ctx.moveTo(p0.x, p0.y);
+    for (var i = 1; i < points.length; i++) {
+        var p = points[i];
+        ctx.lineTo(p.x, p.y);
+    }
+    ctx.lineTo(p0.x, p0.y);
+    ctx.stroke();
+}
+
+function ToggleLineDraw() {
+    can_draw_lines = !can_draw_lines;
 }
