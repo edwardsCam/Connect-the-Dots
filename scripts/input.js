@@ -39,12 +39,11 @@ $(document).ready(function() {
         }
     });
 
-    var canvas = document.getElementById('canvas');
-    ctx = canvas.getContext('2d');
+    ctx = document.getElementById('canvas').getContext('2d');
     ctx.canvas.width = window.innerWidth;
     ctx.canvas.height = window.innerHeight
     ctx.FillStyle = "rgb(255,255,255)";
-    ctx.font="40px Arial";
-    ctx.textAlign="center";
+    ctx.font = "40px Arial";
+    ctx.textAlign = "center";
 
 });

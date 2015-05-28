@@ -10,7 +10,7 @@ h2 {
     font-size: 1.1rem;
     font-weight: 100;
 }
-.button {
+#button {
     background: #A09C7D;
     position: absolute;
     margin-left: auto;
