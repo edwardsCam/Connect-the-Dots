@@ -8,13 +8,13 @@ $(document).ready(function() {
     $("#button").hover(function() {
         if (solve_enabled) {
             $(this).stop().animate({
-                width: '700px'
+                width: '300px'
             }, 500);
         }
     }, function() {
         if (solve_enabled) {
             $(this).stop().animate({
-                width: '600px'
+                width: '200px'
             }, 500);
         }
     });
@@ -40,8 +40,11 @@ $(document).ready(function() {
     });
 
     var canvas = document.getElementById('canvas');
-    canvas.style.border = "black 3px solid";
     ctx = canvas.getContext('2d');
+    ctx.canvas.width = window.innerWidth;
+    ctx.canvas.height = window.innerHeight
     ctx.FillStyle = "rgb(255,255,255)";
+    ctx.font="40px Arial";
+    ctx.textAlign="center";
 
 });

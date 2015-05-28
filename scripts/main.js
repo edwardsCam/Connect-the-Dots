@@ -25,13 +25,14 @@ function IsButtonEnabled() {
         document.getElementById('button').innerHTML = '<h2>Make some points!</h2>';
         $("#button").stop().animate({
             height: '25px',
-            width: '600px'
+            width: '200px'
         }, 500);
     }
 }
 
 function Render() {
     wipeCanvas();
+    ctx.fillText("Connect the Dots",ctx.canvas.width/2,50);
     for (var i = 0; i < points.length; i++) {
         var p = points[i];
         if (p.drawn) {
