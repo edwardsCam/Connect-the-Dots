@@ -1,55 +1,8 @@
 var points = [];
-var ctx;
-var solve_toggle = false;
-var solve_enabled = false;
 
 $(document).ready(function() {
-
-    $("#button").hover(function() {
-        if (solve_enabled) {
-            $(this).stop().animate({
-                width: '700px'
-            }, 500);
-        }
-    }, function() {
-        if (solve_enabled) {
-            $(this).stop().animate({
-                width: '600px'
-            }, 500);
-        }
-    });
-
-    $("#button").click(function() {
-        if (!solve_toggle) {
-            Solve();
-        } else {
-            ResetAll();
-        }
-    });
-
-    $("#canvas").click(function(e) {
-        if (!solve_toggle) {
-            canoffset = $(canvas).offset();
-            var mouse_x = event.clientX + document.body.scrollLeft + document.documentElement.scrollLeft - Math.floor(canoffset.left);
-            var mouse_y = event.clientY + document.body.scrollTop + document.documentElement.scrollTop - Math.floor(canoffset.top) + 1;
-            points.push({
-                x: mouse_x,
-                y: mouse_y
-            });
-        }
-    });
-
-    var canvas = document.getElementById('canvas');
-    canvas.style.border = "red 2px solid";
-    ctx = canvas.getContext('2d');
-    ctx.FillStyle = "rgb(255,255,255)";
-
     MainLoop();
 });
-
-function wipeCanvas() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-}
 
 function MainLoop() {
     IsButtonEnabled();
@@ -121,18 +74,6 @@ function GetAngles(center) {
     }
 }
 
-function SortByAngle() {
-    points.sort(CompareByAngle);
-}
-
-function CompareByAngle(p1, p2) {
-    if (p1.a < p2.a)
-        return -1;
-    if (p1.a > p2.a)
-        return 1;
-    return 0;
-}
-
 function DrawLines() {
     if (points.length > 0) {
         var p0 = points[0];
@@ -164,4 +105,20 @@ function ResetAll() {
 
 function Wiggle() {
     //wiggle?
+}
+
+function SortByAngle() {
+    points.sort(CompareByAngle);
+}
+
+function CompareByAngle(p1, p2) {
+    if (p1.a < p2.a)
+        return -1;
+    if (p1.a > p2.a)
+        return 1;
+    return 0;
+}
+
+function wipeCanvas() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
