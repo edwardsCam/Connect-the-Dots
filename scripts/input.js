@@ -1,4 +1,4 @@
-var ctx;
+var canvas, ctx;
 var solve_toggle = false;
 var solve_enabled = false;
 
@@ -31,12 +31,14 @@ $(document).ready(function() {
             var offset = $(this).offset();
             points.push({
                 x: event.clientX + document.body.scrollLeft + document.documentElement.scrollLeft - Math.floor(offset.left),
-                y: event.clientY + document.body.scrollTop + document.documentElement.scrollTop - Math.floor(offset.top) + 1
+                y: event.clientY + document.body.scrollTop + document.documentElement.scrollTop - Math.floor(offset.top) + 1,
+                drawing: false,
+                drawn: false
             });
         }
     });
 
-    var canvas = document.getElementById('canvas');
+    canvas = document.getElementById('canvas');
     canvas.style.border = "black 3px solid";
     ctx = canvas.getContext('2d');
     ctx.FillStyle = "rgb(255,255,255)";

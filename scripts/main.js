@@ -1,4 +1,6 @@
 var points = [];
+var point_size = 10;
+var growTime = 250;
 
 $(document).ready(function() {
     MainLoop();
@@ -33,7 +35,15 @@ function Render() {
     wipeCanvas();
     for (var i = 0; i < points.length; i++) {
         var p = points[i];
-        ctx.fillRect(p.x - 2, p.y - 2, 4, 4);
+        if (p.drawn) {
+            ctx.fillRect(p.x - point_size / 2, p.y - point_size / 2, point_size, point_size);
+        } else {
+            if (!p.drawing) {
+                p.s = performance.now();
+                p.drawing = true;
+            }
+            GrowPoint(p);
+        }
     }
     if (solve_toggle) {
         DrawLines();
@@ -121,4 +131,13 @@ function CompareByAngle(p1, p2) {
 
 function wipeCanvas() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
+
+function GrowPoint(p) {
+    var percent = (performance.now() - p.s) / growTime;
+    var size = percent * point_size;
+    ctx.fillRect(p.x - size / 2, p.y - size / 2, size, size);
+    if (percent > 1) {
+        p.drawn = true;
+    }
 }
