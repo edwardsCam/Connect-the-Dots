@@ -1,5 +1,5 @@
 var point_size = 10;
-var growTime = 250;
+var growTime = 300;
 
 $(document).ready(function() {
     MainLoop();
@@ -32,11 +32,11 @@ function IsButtonEnabled() {
 
 function Render() {
     wipeCanvas();
-    ctx.fillText("Connect the Dots",ctx.canvas.width/2,50);
+    ctx.fillText("Connect the Dots", ctx.canvas.width / 2, 50);
     for (var i = 0; i < points.length; i++) {
         var p = points[i];
         if (p.drawn) {
-            ctx.fillRect(p.x - point_size / 2, p.y - point_size / 2, point_size, point_size);
+            draw(p.x - point_size / 2, p.y - point_size / 2, point_size);
         } else {
             if (!p.drawing) {
                 p.s = performance.now();
@@ -56,8 +56,6 @@ function Solve() {
         GetAngles(center);
         SortByAngle();
         ToggleSolve();
-    } else {
-        Wiggle();
     }
 }
 
@@ -113,10 +111,6 @@ function ResetAll() {
     ToggleSolve();
 }
 
-function Wiggle() {
-    //wiggle?
-}
-
 function SortByAngle() {
     points.sort(CompareByAngle);
 }
@@ -136,8 +130,12 @@ function wipeCanvas() {
 function GrowPoint(p) {
     var percent = (performance.now() - p.s) / growTime;
     var size = percent * point_size;
-    ctx.fillRect(p.x - size / 2, p.y - size / 2, size, size);
+    draw(p.x - size / 2, p.y - size / 2, size);
     if (percent > 1) {
         p.drawn = true;
     }
+}
+
+function draw(x, y, w) {
+    ctx.fillRect(x, y, w, w);
 }
