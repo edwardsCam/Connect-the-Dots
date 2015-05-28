@@ -1,4 +1,3 @@
-var points = [];
 var point_size = 10;
 var growTime = 250;
 

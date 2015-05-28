@@ -1,6 +1,7 @@
-var canvas, ctx;
+var ctx;
 var solve_toggle = true;
 var solve_enabled = false;
+var points = [];
 
 $(document).ready(function() {
 
@@ -38,7 +39,7 @@ $(document).ready(function() {
         }
     });
 
-    canvas = document.getElementById('canvas');
+    var canvas = document.getElementById('canvas');
     canvas.style.border = "black 3px solid";
     ctx = canvas.getContext('2d');
     ctx.FillStyle = "rgb(255,255,255)";
