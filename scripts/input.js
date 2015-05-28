@@ -1,5 +1,5 @@
 var canvas, ctx;
-var solve_toggle = false;
+var solve_toggle = true;
 var solve_enabled = false;
 
 $(document).ready(function() {
@@ -19,7 +19,7 @@ $(document).ready(function() {
     });
 
     $("#button").click(function() {
-        if (!solve_toggle) {
+        if (solve_toggle) {
             Solve();
         } else {
             ResetAll();
@@ -27,7 +27,7 @@ $(document).ready(function() {
     });
 
     $("#canvas").click(function(e) {
-        if (!solve_toggle) {
+        if (solve_toggle) {
             var offset = $(this).offset();
             points.push({
                 x: e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft - Math.floor(offset.left),

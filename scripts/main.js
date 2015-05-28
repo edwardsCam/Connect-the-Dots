@@ -45,7 +45,7 @@ function Render() {
             GrowPoint(p);
         }
     }
-    if (solve_toggle) {
+    if (!solve_toggle) {
         DrawLines();
     }
 }
@@ -101,10 +101,10 @@ function DrawLines() {
 function ToggleSolve() {
     if (solve_toggle) {
         solve_toggle = false;
-        document.getElementById('button').innerHTML = '<h2>Solve</h2>';
+        document.getElementById('button').innerHTML = '<h2>Reset</h2>';
     } else {
         solve_toggle = true;
-        document.getElementById('button').innerHTML = '<h2>Reset</h2>';
+        document.getElementById('button').innerHTML = '<h2>Solve</h2>';
     }
 }
 
