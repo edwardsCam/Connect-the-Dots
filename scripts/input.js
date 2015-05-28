@@ -30,8 +30,8 @@ $(document).ready(function() {
         if (!solve_toggle) {
             var offset = $(this).offset();
             points.push({
-                x: event.clientX + document.body.scrollLeft + document.documentElement.scrollLeft - Math.floor(offset.left),
-                y: event.clientY + document.body.scrollTop + document.documentElement.scrollTop - Math.floor(offset.top) + 1,
+                x: e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft - Math.floor(offset.left),
+                y: e.clientY + document.body.scrollTop + document.documentElement.scrollTop - Math.floor(offset.top) + 1,
                 drawing: false,
                 drawn: false
             });
